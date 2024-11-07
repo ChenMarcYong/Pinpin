@@ -73,8 +73,9 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Vérifie si le personnage est de nouveau au sol
-        if (collision.contacts[0].normal.y > 0.5f) // vérifie si le contact vient du bas
+        if (collision.contacts[0].normal.y > 0.5f && !isGrounded) // vérifie si le contact vient du bas
         {
+            animator.SetTrigger("Squish");
             isGrounded = true;
         }
     }
