@@ -15,12 +15,12 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = true;
 
     private Animator animator;
-    private Rigidbody2D rigidbody;
+    public Rigidbody2D rigidbody;
     private Vector2 inputValue;
 
     void Start()
     {
-        rigidbody = FindObjectOfType<Rigidbody2D>();
+        //rigidbody = FindObjectOfType<Rigidbody2D>();
         animator = FindObjectOfType<Animator>();
     }
 
