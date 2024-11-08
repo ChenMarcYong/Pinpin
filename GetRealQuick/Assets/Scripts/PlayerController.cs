@@ -15,34 +15,43 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = true;
 
     private Animator animator;
-    public Rigidbody2D rigidbody;
-    private Vector2 inputValue;
+    private Rigidbody2D rigidbody;
+    private Vector2 inputValue; 
+    private SpriteRenderer spriteRenderer;
 
     void Start()
     {
-        //rigidbody = FindObjectOfType<Rigidbody2D>();
+        rigidbody = FindObjectOfType<Rigidbody2D>();
         animator = FindObjectOfType<Animator>();
+        spriteRenderer = FindObjectOfType<SpriteRenderer>();
     }
 
     void MoveAround()
     {
-        // if(Mathf.Abs(inputValue.x) > 0.0f) 
-        // {
+        if(Mathf.Abs(inputValue.x) > 0.0f) 
+        {
             if (rigidbody) 
             {
                 rigidbody.velocity = new Vector2(inputValue.x * speedX, rigidbody.velocity.y);
                 animator.SetFloat("Speed", rigidbody.velocity.magnitude);
             }
-            else 
+            if (inputValue.x > 0)
             {
-                animator.SetFloat("Speed", 0.0f);
+                spriteRenderer.flipX = false; // Vers la droite
             }
-        // }
+            else if (inputValue.x < 0)
+            {
+                spriteRenderer.flipX = true; // Vers la gauche
+            }
 
-        // else 
-        // {
-        //     animator.SetFloat("Speed", 0.0f);
-        // }
+
+        }
+
+        else 
+        {
+        animator.SetFloat("Speed", 0.0f);
+        rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
+        }
     }
 
     void OnMove(InputValue value) 
@@ -63,6 +72,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded) 
         {
             animator.SetTrigger("Jump");
+            animator.SetBool("IsOnGround", false);
             UnityEngine.Debug.Log("Jump");
             isGrounded = false;
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
@@ -75,7 +85,7 @@ public class PlayerController : MonoBehaviour
         // Vérifie si le personnage est de nouveau au sol
         if (collision.contacts[0].normal.y > 0.5f && !isGrounded) // vérifie si le contact vient du bas
         {
-            animator.SetTrigger("Squish");
+            animator.SetBool("IsOnGround", true);
             isGrounded = true;
         }
     }
