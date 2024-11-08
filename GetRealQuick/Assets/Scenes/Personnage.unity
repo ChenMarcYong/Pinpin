@@ -240,6 +240,11 @@ PrefabInstance:
     - {fileID: 9084275806347478853, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
     - {fileID: 9084275806347478848, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
+--- !u!1 &911475240 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9084275806347478974, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
+  m_PrefabInstance: {fileID: 1781586367}
+  m_PrefabAsset: {fileID: 0}
 --- !u!50 &1358714725 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 9084275806347478850, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
@@ -356,21 +361,25 @@ PrefabInstance:
       propertyPath: m_BodyType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9084275806347478850, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9084275806347478851, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
       propertyPath: m_Size.x
-      value: 1.85
+      value: 1.95
       objectReference: {fileID: 0}
     - target: {fileID: 9084275806347478851, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
       propertyPath: m_Size.y
-      value: 2.6
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 9084275806347478851, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
       propertyPath: m_Offset.x
-      value: 0
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: 9084275806347478851, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
       propertyPath: m_Offset.y
-      value: -1.2
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 9084275806347478851, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
       propertyPath: m_IsTrigger
@@ -398,11 +407,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9084275806347478975, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.22
+      value: 5.23
       objectReference: {fileID: 0}
     - target: {fileID: 9084275806347478975, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.02
+      value: 1.65
       objectReference: {fileID: 0}
     - target: {fileID: 9084275806347478975, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
       propertyPath: m_LocalPosition.z
@@ -557,6 +566,26 @@ Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 9084275806347478850, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
   m_PrefabInstance: {fileID: 1781586367}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1896582535
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911475240}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 498fa771f845dc54793d32a20dbfd0d6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &9084275805900072384
 PrefabInstance:
   m_ObjectHideFlags: 0
