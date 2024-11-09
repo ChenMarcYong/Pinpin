@@ -9,10 +9,19 @@ using System.Diagnostics;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speedX = 5f;
-    public float speedY = 5f;
-    public float jumpForce = 5f;
-    private bool isGrounded = true;
+    public float speedX = 6f;
+    public float speedY = 6f;
+    public float jumpForce = 7f;
+    private bool isGrounded = false;
+
+    public float dashForce = 25f;
+    public float dashDuration = 0.12f;
+    public float dashCooldown = 2f;
+
+    private bool isDashing = false;
+    private float lastDashTime;
+
+
 
     private Animator animator;
     private Rigidbody2D rigidbody;
@@ -21,14 +30,16 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        rigidbody = FindObjectOfType<Rigidbody2D>();
-        animator = FindObjectOfType<Animator>();
-        spriteRenderer = FindObjectOfType<SpriteRenderer>();
+        rigidbody = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void MoveAround()
     {
-        if(Mathf.Abs(inputValue.x) > 0.0f) 
+
+        if (isDashing) return; // Empêche le mouvement normal pendant le dash
+        if (Mathf.Abs(inputValue.x) > 0.0f) 
         {
             if (rigidbody) 
             {
@@ -80,6 +91,37 @@ public class PlayerController : MonoBehaviour
 
         // rigidbody.AddForce(0.0f, 5.0f, 0.0f, ForceMode.Impulse);
     }
+
+    void OnDash()
+    {
+        // Vérifie si le dash est en cooldown
+        if (Time.time - lastDashTime >= dashCooldown && !isDashing)
+        {
+            StartCoroutine(Dash());
+        }
+    }
+
+    private IEnumerator Dash()
+    {
+        isDashing = true;
+        lastDashTime = Time.time;
+
+        // Activer le paramètre "IsDashing" dans l'Animator pour démarrer l'animation
+        animator.SetBool("IsDashing", true);
+
+        // Calculer la direction du dash (vers la droite ou vers la gauche en fonction de `inputValue.x`)
+        float dashDirection = inputValue.x != 0 ? Mathf.Sign(inputValue.x) : (spriteRenderer.flipX ? -1 : 1);
+        rigidbody.velocity = new Vector2(dashDirection * dashForce, rigidbody.velocity.y);
+
+        // Attendre la durée du dash avant de rétablir les contrôles normaux
+        yield return new WaitForSeconds(dashDuration);
+
+        // Désactiver "IsDashing" pour arrêter l'animation
+        animator.SetBool("IsDashing", false);
+        isDashing = false;
+    }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Vérifie si le personnage est de nouveau au sol

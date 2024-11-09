@@ -330,10 +330,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9084275806347478849, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9084275806347478850, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
+      propertyPath: m_GravityScale
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9084275806347478852, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
+      propertyPath: speedX
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9084275806347478852, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
+      propertyPath: dashForce
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 9084275806347478852, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
+      propertyPath: jumpForce
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9084275806347478852, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
       propertyPath: rigidbody
       value: 
       objectReference: {fileID: 451778803}
+    - target: {fileID: 9084275806347478852, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
+      propertyPath: dashCooldown
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9084275806347478852, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
+      propertyPath: dashDuration
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 9084275806347478974, guid: 98bbb35a582b52f43ab184697b459e17, type: 3}
       propertyPath: m_Name
       value: Pinpin
