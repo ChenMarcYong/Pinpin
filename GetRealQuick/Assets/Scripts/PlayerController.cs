@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speedX = 6f;
     public float speedY = 6f;
-    public float jumpForce = 7f;
+    public float jumpForce = 10f;
     private bool isGrounded = false;
 
     public float dashForce = 25f;
@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
 
     private bool isDashing = false;
     private float lastDashTime;
+
+    public float fallMultiplier = 2.5f;   // Multiplicateur pour accélérer la chute
+    public float lowJumpMultiplier = 2f;  // Pour accélérer les sauts courts quand le joueur relâche le bouton
 
 
 
@@ -108,16 +111,17 @@ public class PlayerController : MonoBehaviour
 
         // Activer le paramètre "IsDashing" dans l'Animator pour démarrer l'animation
         animator.SetBool("IsDashing", true);
-
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ennemi"), true);
         // Calculer la direction du dash (vers la droite ou vers la gauche en fonction de `inputValue.x`)
         float dashDirection = inputValue.x != 0 ? Mathf.Sign(inputValue.x) : (spriteRenderer.flipX ? -1 : 1);
-        rigidbody.velocity = new Vector2(dashDirection * dashForce, rigidbody.velocity.y);
+        rigidbody.velocity = new Vector2(dashDirection * dashForce, 0);
 
         // Attendre la durée du dash avant de rétablir les contrôles normaux
         yield return new WaitForSeconds(dashDuration);
 
         // Désactiver "IsDashing" pour arrêter l'animation
         animator.SetBool("IsDashing", false);
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ennemi"), false);
         isDashing = false;
     }
 
@@ -135,5 +139,21 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MoveAround();
+        //ApplyGravityMultiplier();
+    }
+
+    void ApplyGravityMultiplier()
+    {
+        // Si le personnage tombe (vitesse vers le bas)
+        if (rigidbody.velocity.y < 0)
+        {
+            // Augmente la gravité pour rendre la chute plus rapide
+            rigidbody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+        // Si le personnage saute et qu'on relâche le bouton de saut, cela réduit la hauteur de saut
+        else if (rigidbody.velocity.y > 0 && !Keyboard.current.spaceKey.isPressed)
+        {
+            rigidbody.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        }
     }
 }
