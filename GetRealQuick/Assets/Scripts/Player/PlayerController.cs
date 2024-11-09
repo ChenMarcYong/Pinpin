@@ -24,18 +24,25 @@ public class PlayerController : MonoBehaviour
     public float fallMultiplier = 2.5f;   // Multiplicateur pour accélérer la chute
     public float lowJumpMultiplier = 2f;  // Pour accélérer les sauts courts quand le joueur relâche le bouton
 
-
+    public Collider2D attackCollider;
+    public Transform attackPoint;
+    public LayerMask ennemiMask;
+    public float attackRange = 0.5f;
 
     private Animator animator;
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D playerRigidbody;
     private Vector2 inputValue; 
     private SpriteRenderer spriteRenderer;
 
+    private int direction;
+
+
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        playerRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        attackCollider.enabled = false;
     }
 
     void MoveAround()
@@ -44,18 +51,24 @@ public class PlayerController : MonoBehaviour
         if (isDashing) return; // Empêche le mouvement normal pendant le dash
         if (Mathf.Abs(inputValue.x) > 0.0f) 
         {
-            if (rigidbody) 
+            if (playerRigidbody) 
             {
-                rigidbody.velocity = new Vector2(inputValue.x * speedX, rigidbody.velocity.y);
-                animator.SetFloat("Speed", rigidbody.velocity.magnitude);
+                playerRigidbody.velocity = new Vector2(inputValue.x * speedX, playerRigidbody.velocity.y);
+                animator.SetFloat("Speed", playerRigidbody.velocity.magnitude);
             }
             if (inputValue.x > 0)
             {
                 spriteRenderer.flipX = false; // Vers la droite
+                attackPoint.localPosition = new Vector3(Mathf.Abs(attackPoint.localPosition.x), attackPoint.localPosition.y, attackPoint.localPosition.z);
+                direction = 1;
+
             }
             else if (inputValue.x < 0)
             {
                 spriteRenderer.flipX = true; // Vers la gauche
+                attackPoint.localPosition = new Vector3(- Mathf.Abs(attackPoint.localPosition.x), attackPoint.localPosition.y, attackPoint.localPosition.z);
+                direction = -1;
+
             }
 
 
@@ -64,21 +77,28 @@ public class PlayerController : MonoBehaviour
         else 
         {
         animator.SetFloat("Speed", 0.0f);
-        rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
+        playerRigidbody.velocity = new Vector2(0, playerRigidbody.velocity.y);
         }
     }
 
     void OnMove(InputValue value) 
     {
-        UnityEngine.Debug.Log("move");
+        //UnityEngine.Debug.Log("move");
         inputValue = value.Get<Vector2>();
         
     }
 
     void OnAttack()
     {
-        UnityEngine.Debug.Log("Attack");
+        //UnityEngine.Debug.Log("Attack");
         animator.SetTrigger("Attack");
+
+        Collider2D[] hitEnnemies = Physics2D.OverlapCircleAll(attackCollider.transform.position, attackRange, ennemiMask);
+
+        foreach (Collider2D ennmi in hitEnnemies)
+        {
+            UnityEngine.Debug.Log("We hit" + ennmi.name);
+        }
     }    
     
     void OnJump() 
@@ -89,10 +109,10 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsOnGround", false);
             UnityEngine.Debug.Log("Jump");
             isGrounded = false;
-            rigidbody.velocity = new Vector2(rigidbody.velocity.x, jumpForce);
+            playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
         }
 
-        // rigidbody.AddForce(0.0f, 5.0f, 0.0f, ForceMode.Impulse);
+        // playerRigidbody.AddForce(0.0f, 5.0f, 0.0f, ForceMode.Impulse);
     }
 
     void OnDash()
@@ -114,7 +134,7 @@ public class PlayerController : MonoBehaviour
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ennemi"), true);
         // Calculer la direction du dash (vers la droite ou vers la gauche en fonction de `inputValue.x`)
         float dashDirection = inputValue.x != 0 ? Mathf.Sign(inputValue.x) : (spriteRenderer.flipX ? -1 : 1);
-        rigidbody.velocity = new Vector2(dashDirection * dashForce, 0);
+        playerRigidbody.velocity = new Vector2(dashDirection * dashForce, 0);
 
         // Attendre la durée du dash avant de rétablir les contrôles normaux
         yield return new WaitForSeconds(dashDuration);
@@ -145,15 +165,21 @@ public class PlayerController : MonoBehaviour
     void ApplyGravityMultiplier()
     {
         // Si le personnage tombe (vitesse vers le bas)
-        if (rigidbody.velocity.y < 0)
+        if (playerRigidbody.velocity.y < 0)
         {
             // Augmente la gravité pour rendre la chute plus rapide
-            rigidbody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            playerRigidbody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
         // Si le personnage saute et qu'on relâche le bouton de saut, cela réduit la hauteur de saut
-        else if (rigidbody.velocity.y > 0 && !Keyboard.current.spaceKey.isPressed)
+        else if (playerRigidbody.velocity.y > 0 && !Keyboard.current.spaceKey.isPressed)
         {
-            rigidbody.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            playerRigidbody.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null) return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }

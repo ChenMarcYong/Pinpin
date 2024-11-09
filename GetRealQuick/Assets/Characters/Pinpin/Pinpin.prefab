@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2580902678974308207
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6834309416461270604}
+  m_Layer: 0
+  m_Name: attackPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6834309416461270604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2580902678974308207}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9084275806347478975}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9084275806347478974
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,6 +46,7 @@ GameObject:
   - component: {fileID: 9084275806347478850}
   - component: {fileID: 9084275806347478852}
   - component: {fileID: 9084275806347478853}
+  - component: {fileID: 1734488030577565650}
   m_Layer: 0
   m_Name: Pinpin
   m_TagString: Untagged
@@ -33,7 +65,8 @@ Transform:
   m_LocalPosition: {x: 0.06, y: 2.5, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 6834309416461270604}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -161,6 +194,11 @@ MonoBehaviour:
   speedX: 4
   speedY: 4
   jumpForce: 5
+  dashForce: 25
+  dashDuration: 0.12
+  dashCooldown: 2
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
 --- !u!114 &9084275806347478853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,3 +229,20 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1734488030577565650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9084275806347478974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 289c80ba55f6bd249b61cf3b82171b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ennemiMask:
+    serializedVersion: 2
+    m_Bits: 128
+  attackRange: 0.5
+  attackPoint: {fileID: 6834309416461270604}
