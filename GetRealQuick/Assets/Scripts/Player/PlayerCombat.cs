@@ -12,6 +12,10 @@ public class PlayerCombat : MonoBehaviour
     public float attackRange = 0.5f;
     public Transform attackPoint;
     public Collider2D attackCollider;
+
+
+
+    public float attackDammage = 1;
     void Start()
     {
     }
@@ -30,6 +34,8 @@ public class PlayerCombat : MonoBehaviour
         foreach(Collider2D ennmi in hitEnnemies) 
         {
             UnityEngine.Debug.Log("We hit" + ennmi.name);
+            ennmi.GetComponent<EnnemiStatus>().DamageTaken(attackDammage);
+
         }
         //attackCollider.enabled = false;
     }
