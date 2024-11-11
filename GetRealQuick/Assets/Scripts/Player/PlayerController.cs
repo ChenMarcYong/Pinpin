@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     private bool isDashing = false;
     private float lastDashTime;
 
+    public bool isShieldActive = false;
+
     public float fallMultiplier = 2.5f;   // Multiplicateur pour accélérer la chute
     public float lowJumpMultiplier = 2f;  // Pour accélérer les sauts courts quand le joueur relâche le bouton
 
@@ -94,14 +96,19 @@ public class PlayerController : MonoBehaviour
     void OnAttack()
     {
         //UnityEngine.Debug.Log("Attack");
-        animator.SetTrigger("Attack");
 
-        Collider2D[] hitEnnemies = Physics2D.OverlapCircleAll(attackCollider.transform.position, attackRange, ennemiMask);
-
-        foreach (Collider2D ennmi in hitEnnemies)
+        if (!isShieldActive) 
         {
-            UnityEngine.Debug.Log("We hit" + ennmi.name);
+            animator.SetTrigger("Attack");
+
+            Collider2D[] hitEnnemies = Physics2D.OverlapCircleAll(attackCollider.transform.position, attackRange, ennemiMask);
+
+            foreach (Collider2D ennmi in hitEnnemies)
+            {
+                UnityEngine.Debug.Log("We hit" + ennmi.name);
+            }
         }
+
     }    
     
     void OnJump() 
@@ -127,6 +134,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnShield(InputValue value)
+    {
+        // Active ou désactive le bouclier en fonction de l'état du bouton (enfoncé ou relâché)
+
+        //isShieldActive = value.isPressed
+    }
+
     private IEnumerator Dash()
     {
         isDashing = true;
@@ -149,6 +163,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Vérifie si le personnage est de nouveau au sol
@@ -163,6 +178,20 @@ public class PlayerController : MonoBehaviour
     {
         MoveAround();
         //ApplyGravityMultiplier();
+        isShieldActive = Keyboard.current.rKey.isPressed;  // ou Input.GetButton("Bouclier") pour l'ancien système Input
+
+        if (isShieldActive)
+        {
+            // Activer le bouclier
+            animator.SetBool("IsShielding", true);
+            //Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ennemi"), true);
+        }
+        else
+        {
+            // Désactiver le bouclier
+            animator.SetBool("IsShielding", false);
+            //Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ennemi"), false);
+        }
     }
 
     void ApplyGravityMultiplier()
