@@ -28,8 +28,8 @@ public class PlayerCombat : MonoBehaviour
 
     void OnAttack() 
     {
-        if (!GetComponent<PlayerController>().isShieldActive)
-        {
+       // if (!GetComponent<PlayerController>().isShieldActive)
+        //{
             UnityEngine.Debug.Log("Attack");
             Collider2D[] hitEnnemies = Physics2D.OverlapCircleAll(attackCollider.transform.position, attackRange, ennemiMask);
 
@@ -39,7 +39,7 @@ public class PlayerCombat : MonoBehaviour
                 ennmi.GetComponent<EnnemiStatus>().DamageTaken(attackDammage);
 
             }
-        }
+       // }
 
         //attackCollider.enabled = false;
     }

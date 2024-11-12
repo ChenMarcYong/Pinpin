@@ -20,11 +20,15 @@ public class PlayerController : MonoBehaviour
     public float dashForce = 25f;
     public float dashDuration = 0.12f;
     public float dashCooldown = 2f;
-
     private bool isDashing = false;
     private float lastDashTime;
 
-    public bool isShieldActive = false;
+    //public bool isShieldActive = false;
+
+    public float shieldDuration = 2f; // Durée du bouclier actif en secondes
+    public float shieldCooldown = 5f; // Cooldown du bouclier en secondes
+    private float lastShieldTime = -Mathf.Infinity; // Dernière activation du bouclier
+    private bool isShielding = false; // Indique si le bouclier est actif
 
     public float fallMultiplier = 2.5f;   // Multiplicateur pour accélérer la chute
     public float lowJumpMultiplier = 2f;  // Pour accélérer les sauts courts quand le joueur relâche le bouton
@@ -39,6 +43,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 inputValue; 
     private SpriteRenderer spriteRenderer;
 
+    public GameObject shieldLeft;           // Sprite bouclier à gauche
+    public GameObject shieldRight;          // Sprite bouclier à droite
+
     private int direction;
 
 
@@ -48,6 +55,9 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         attackCollider.enabled = false;
+
+        shieldLeft.SetActive(false);
+        shieldRight.SetActive(false);
     }
 
     void MoveAround()
@@ -97,8 +107,8 @@ public class PlayerController : MonoBehaviour
     {
         //UnityEngine.Debug.Log("Attack");
 
-        if (!isShieldActive) 
-        {
+        //if (!isShieldActive) 
+        //{
             animator.SetTrigger("Attack");
 
             Collider2D[] hitEnnemies = Physics2D.OverlapCircleAll(attackCollider.transform.position, attackRange, ennemiMask);
@@ -107,7 +117,7 @@ public class PlayerController : MonoBehaviour
             {
                 UnityEngine.Debug.Log("We hit" + ennmi.name);
             }
-        }
+        //}
 
     }    
     
@@ -134,13 +144,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnShield(InputValue value)
-    {
-        // Active ou désactive le bouclier en fonction de l'état du bouton (enfoncé ou relâché)
-
-        //isShieldActive = value.isPressed
-    }
-
     private IEnumerator Dash()
     {
         isDashing = true;
@@ -162,6 +165,34 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
     }
 
+    void OnShield()
+    {
+        // Si assez de temps est passé depuis la dernière activation, activer le bouclier
+        if (Time.time - lastShieldTime >= shieldCooldown && !isShielding)
+        {
+            StartCoroutine(ActivateShield());
+        }
+    }
+
+    private IEnumerator ActivateShield()
+    {
+        // Activer le bouclier
+        isShielding = true;
+        lastShieldTime = Time.time;
+        shieldLeft.SetActive(true);
+        shieldRight.SetActive(true);
+
+        // Garder le bouclier actif pendant la durée spécifiée
+        yield return new WaitForSeconds(shieldDuration);
+
+        // Désactiver le bouclier
+        shieldLeft.SetActive(false);
+        shieldRight.SetActive(false);
+        isShielding = false;
+    }
+
+
+
 
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -178,9 +209,9 @@ public class PlayerController : MonoBehaviour
     {
         MoveAround();
         //ApplyGravityMultiplier();
-        isShieldActive = Keyboard.current.rKey.isPressed;  // ou Input.GetButton("Bouclier") pour l'ancien système Input
+        //isShieldActive = Keyboard.current.rKey.isPressed;  // ou Input.GetButton("Bouclier") pour l'ancien système Input
 
-        if (isShieldActive)
+        /*if (isShieldActive)
         {
             // Activer le bouclier
             animator.SetBool("IsShielding", true);
@@ -191,7 +222,7 @@ public class PlayerController : MonoBehaviour
             // Désactiver le bouclier
             animator.SetBool("IsShielding", false);
             //Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ennemi"), false);
-        }
+        }*/
     }
 
     void ApplyGravityMultiplier()
