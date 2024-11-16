@@ -73,18 +73,22 @@ public class PlayerController : MonoBehaviour
             }
             if (inputValue.x > 0)
             {
-                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                direction = 1;
+                //transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
                 //spriteRenderer.flipX = false; // Vers la droite
                 //attackPoint.localPosition = new Vector3(Mathf.Abs(attackPoint.localPosition.x), attackPoint.localPosition.y, attackPoint.localPosition.z);
 
             }
             else if (inputValue.x < 0)
             {
-                transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                direction = -1;
+                //transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
                 //spriteRenderer.flipX = true; // Vers la gauche
                 //attackPoint.localPosition = new Vector3(- Mathf.Abs(attackPoint.localPosition.x), attackPoint.localPosition.y, attackPoint.localPosition.z);
 
             }
+
+            transform.localScale = new Vector3(direction * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
 
 
         }
@@ -154,7 +158,7 @@ public class PlayerController : MonoBehaviour
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ennemi"), true);
         // Calculer la direction du dash (vers la droite ou vers la gauche en fonction de `inputValue.x`)
         float dashDirection = inputValue.x != 0 ? Mathf.Sign(inputValue.x) : (spriteRenderer.flipX ? -1 : 1);
-        playerRigidbody.velocity = new Vector2(dashDirection * dashForce, playerRigidbody.velocity.y);
+        playerRigidbody.velocity = new Vector2(direction * dashForce, playerRigidbody.velocity.y);
 
         // Attendre la durée du dash avant de rétablir les contrôles normaux
         yield return new WaitForSeconds(dashDuration);

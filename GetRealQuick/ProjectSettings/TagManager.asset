@@ -13,7 +13,7 @@ TagManager:
   - UI
   - Player
   - Ennemi
-  - 
+  - Ground
   - 
   - 
   - 
@@ -41,8 +41,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1023383205
+    locked: 0
   - name: Ennemi
     uniqueID: 174803273
+    locked: 0
+  - name: Ground
+    uniqueID: 4082753825
+    locked: 0
+  - name: item
+    uniqueID: 2540273241
     locked: 0
   - name: Player
     uniqueID: 3925779827
