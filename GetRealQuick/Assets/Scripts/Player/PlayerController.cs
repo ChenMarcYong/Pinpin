@@ -54,9 +54,12 @@ public class PlayerController : MonoBehaviour
 
     private int direction;
 
+
+
     public bool IsFacingRight;
 
     private CameraFollowObject _cameraFollowObject;
+    private float _fallSpeedYDampingChangeThreshold;
 
 
 
@@ -74,6 +77,8 @@ public class PlayerController : MonoBehaviour
         _cameraFollowObject = _cameraFollowOB.GetComponent<CameraFollowObject>();
 
         IsFacingRight = true;
+
+        _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeThreshold;
     }
 
     private void TurnCheck()
@@ -280,6 +285,18 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsShielding", false);
             //Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ennemi"), false);
         }*/
+
+
+        if(playerRigidbody.velocity.y < _fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling)
+        {
+            CameraManager.instance.LerpYDamping(true);
+        }
+
+        if(playerRigidbody.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping && CameraManager.instance.LerpedFromPlayerFalling)
+        {
+            CameraManager.instance.LerpedFromPlayerFalling = false;
+            CameraManager.instance.LerpYDamping(false);
+        }
     }
 
     void ApplyGravityMultiplier()
