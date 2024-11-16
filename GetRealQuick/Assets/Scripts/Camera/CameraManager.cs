@@ -1,102 +1,74 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using System.Diagnostics;
 
 public class CameraManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-
-
-
     public static CameraManager instance;
 
     [SerializeField] private CinemachineVirtualCamera[] _allVirtualCameras;
 
+    [Header("Lerping during jump/fall")]
+    [SerializeField] private float _fallScreenY = 0.25f; // Valeur cible de Screen Y pendant la chute
+    [SerializeField] private float _normalScreenY = 0.5f; // Valeur normale de Screen Y
+    [SerializeField] private float _fallYPanTime = 0.35f; // Durée de l'interpolation
+    public float _fallSpeedYDampingChangeThreshold = -15f; // Seuil de vitesse pour détecter une chute
 
-    [Header("lerping during jump/fall")]
-    [SerializeField] private float _fallPanAmount = 0f;
-    [SerializeField] private float _fallYPanTime = 0f;
-    public float _fallSpeedYDampingChangeThreshold = -15f;
- 
-
-
-    public bool IsLerpingYDamping { get; private set; }
+    public bool IsLerpingScreenY { get; private set; }
     public bool LerpedFromPlayerFalling { get; set; }
 
-    private Coroutine _lerpYPanCoroutine;
+    private Coroutine _lerpScreenYCoroutine;
 
     private CinemachineVirtualCamera _currentCamera;
     private CinemachineFramingTransposer _framingTransposer;
 
-    private float _normYPanAmount;
-
-    private void Awake() 
+    private void Awake()
     {
-        if(instance == null) instance = this; 
+        if (instance == null) instance = this;
 
-        for(int i = 0; i < _allVirtualCameras.Length; i++)
+        for (int i = 0; i < _allVirtualCameras.Length; i++)
         {
             if (_allVirtualCameras[i].enabled)
             {
                 _currentCamera = _allVirtualCameras[i];
-
                 _framingTransposer = _currentCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+                break;
             }
         }
-
-        _normYPanAmount = _framingTransposer.m_YDamping;
     }
 
-    #region Lerp the Y Damping
+    #region Lerp the Screen Y
 
-    public void LerpYDamping(bool isPlayerFalling)
+    public void LerpScreenY(bool isPlayerFalling)
     {
-        _lerpYPanCoroutine = StartCoroutine(LerpYAction(isPlayerFalling));
+        if (_lerpScreenYCoroutine != null)
+        {
+            StopCoroutine(_lerpScreenYCoroutine);
+        }
+        _lerpScreenYCoroutine = StartCoroutine(LerpScreenYAction(isPlayerFalling));
     }
 
-    private IEnumerator LerpYAction(bool isPlayerFalling)
+    private IEnumerator LerpScreenYAction(bool isPlayerFalling)
     {
-        IsLerpingYDamping = true;
+        IsLerpingScreenY = true;
 
-        float startDampingAmount = _framingTransposer.m_YDamping;
-        float endDampAmount = 0f;
-
-        if(isPlayerFalling )
-        {
-            endDampAmount = _fallPanAmount;
-            LerpedFromPlayerFalling = true;
-        }
-
-        else
-        {
-            endDampAmount = _normYPanAmount;
-        }
+        float startScreenY = _framingTransposer.m_ScreenY;
+        float endScreenY = isPlayerFalling ? _fallScreenY : _normalScreenY;
 
         float elapsedTime = 0f;
-        while (elapsedTime < _fallYPanTime) 
+        while (elapsedTime < _fallYPanTime)
         {
             elapsedTime += Time.deltaTime;
-            float lerpedPanAmount = Mathf.Lerp(startDampingAmount, endDampAmount, (elapsedTime/_fallYPanTime));
-            _framingTransposer.m_YDamping = lerpedPanAmount;
+            float lerpedScreenY = Mathf.Lerp(startScreenY, endScreenY, (elapsedTime / _fallYPanTime));
+            _framingTransposer.m_ScreenY = lerpedScreenY;
 
             yield return null;
         }
 
-
-        IsLerpingYDamping = false;
+        _framingTransposer.m_ScreenY = endScreenY;
+        IsLerpingScreenY = false;
     }
 
     #endregion
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

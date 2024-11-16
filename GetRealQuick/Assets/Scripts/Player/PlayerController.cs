@@ -287,15 +287,14 @@ public class PlayerController : MonoBehaviour
         }*/
 
 
-        if(playerRigidbody.velocity.y < _fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling)
+        if(playerRigidbody.velocity.y < _fallSpeedYDampingChangeThreshold)
         {
-            CameraManager.instance.LerpYDamping(true);
+            CameraManager.instance.LerpScreenY(true);
         }
 
-        if(playerRigidbody.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping && CameraManager.instance.LerpedFromPlayerFalling)
+        if(playerRigidbody.velocity.y >= _fallSpeedYDampingChangeThreshold)
         {
-            CameraManager.instance.LerpedFromPlayerFalling = false;
-            CameraManager.instance.LerpYDamping(false);
+            CameraManager.instance.LerpScreenY(false);
         }
     }
 
