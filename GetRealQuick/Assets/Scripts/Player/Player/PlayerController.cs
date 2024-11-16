@@ -6,9 +6,15 @@ using UnityEngine.InputSystem;
 using UnityEngine.UIElements.Experimental;
 using System;
 using System.Diagnostics;
+using System.Collections.Specialized;
+using System.Security.Cryptography;
 
 public class PlayerController : MonoBehaviour
 {
+
+    [Header("Camera")]
+    [SerializeField] private GameObject _cameraFollowOB;
+
     public float speedX = 6f;
     public float speedY = 6f;
     public float jumpForce = 10f;
@@ -48,6 +54,12 @@ public class PlayerController : MonoBehaviour
 
     private int direction;
 
+    public bool IsFacingRight;
+
+    private CameraFollowObject _cameraFollowObject;
+
+
+
 
     void Start()
     {
@@ -58,6 +70,51 @@ public class PlayerController : MonoBehaviour
 
         shieldLeft.SetActive(false);
         shieldRight.SetActive(false);
+
+        _cameraFollowObject = _cameraFollowOB.GetComponent<CameraFollowObject>();
+
+        IsFacingRight = true;
+    }
+
+    private void TurnCheck()
+    {
+        if(inputValue.x > 0 && !IsFacingRight)
+        {
+            Turn();
+        }
+
+        else if (inputValue.x < 0 && IsFacingRight)
+        {
+            Turn();
+        }
+
+    }
+
+    private void Turn()
+    {
+        if(IsFacingRight)
+        {
+            Vector3 rotator = new Vector3(transform.rotation.x, 180f, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(rotator);
+            IsFacingRight = !IsFacingRight;
+            _cameraFollowObject.CallTurn();
+            direction = -1;
+        }
+
+        else
+        {
+            Vector3 rotator = new Vector3(transform.rotation.x, 0f, transform.rotation.z);
+            transform.rotation = Quaternion.Euler(rotator);
+            IsFacingRight = !IsFacingRight;
+            _cameraFollowObject.CallTurn();
+            direction = 1;
+
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (Mathf.Abs(inputValue.x) > 0.0f) TurnCheck();
     }
 
     void MoveAround()
@@ -73,31 +130,27 @@ public class PlayerController : MonoBehaviour
             }
             if (inputValue.x > 0)
             {
-                direction = 1;
-                //transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-                //spriteRenderer.flipX = false; // Vers la droite
-                //attackPoint.localPosition = new Vector3(Mathf.Abs(attackPoint.localPosition.x), attackPoint.localPosition.y, attackPoint.localPosition.z);
+                
+                
+                
+                
+                
 
             }
             else if (inputValue.x < 0)
             {
-                direction = -1;
-                //transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-                //spriteRenderer.flipX = true; // Vers la gauche
-                //attackPoint.localPosition = new Vector3(- Mathf.Abs(attackPoint.localPosition.x), attackPoint.localPosition.y, attackPoint.localPosition.z);
+                
 
             }
-
-            transform.localScale = new Vector3(direction * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-
-
         }
-
+        
         else 
         {
         animator.SetFloat("Speed", 0.0f);
         playerRigidbody.velocity = new Vector2(0, playerRigidbody.velocity.y);
         }
+
+        //UnityEngine.Debug.Log(IsFacingRight);
     }
 
     void OnMove(InputValue value) 
