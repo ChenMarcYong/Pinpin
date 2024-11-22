@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     private bool isDashing = false;
     private float lastDashTime;
 
+    public float vy;
+
     //public bool isShieldActive = false;
 
     public float shieldDuration = 2f; // Durée du bouclier actif en secondes
@@ -66,6 +68,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        vy = 0;
         playerRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -175,10 +178,10 @@ public class PlayerController : MonoBehaviour
 
             Collider2D[] hitEnnemies = Physics2D.OverlapCircleAll(attackCollider.transform.position, attackRange, ennemiMask);
 
-            foreach (Collider2D ennmi in hitEnnemies)
+            /*foreach (Collider2D ennmi in hitEnnemies)
             {
                 UnityEngine.Debug.Log("We hit" + ennmi.name);
-            }
+            }*/
         //}
 
     }    
@@ -215,7 +218,6 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsDashing", true);
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ennemi"), true);
         // Calculer la direction du dash (vers la droite ou vers la gauche en fonction de `inputValue.x`)
-        float dashDirection = inputValue.x != 0 ? Mathf.Sign(inputValue.x) : (spriteRenderer.flipX ? -1 : 1);
         playerRigidbody.velocity = new Vector2(direction * dashForce, playerRigidbody.velocity.y);
 
         // Attendre la durée du dash avant de rétablir les contrôles normaux
@@ -270,6 +272,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         MoveAround();
+        vy = playerRigidbody.velocity.y;
+        if (playerRigidbody.velocity.y < -0.5f) isGrounded = false;
+        else isGrounded = true;
+        //if (playerRigidbody.velocity.y == 0f) isGrounded = true;
+        //else isGrounded = false;
         //ApplyGravityMultiplier();
         //isShieldActive = Keyboard.current.rKey.isPressed;  // ou Input.GetButton("Bouclier") pour l'ancien système Input
 
@@ -287,7 +294,7 @@ public class PlayerController : MonoBehaviour
         }*/
 
 
-        if(playerRigidbody.velocity.y < _fallSpeedYDampingChangeThreshold)
+        if (playerRigidbody.velocity.y < _fallSpeedYDampingChangeThreshold)
         {
             CameraManager.instance.LerpScreenY(true);
         }

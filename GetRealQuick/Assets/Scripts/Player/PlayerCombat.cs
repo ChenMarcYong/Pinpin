@@ -30,12 +30,12 @@ public class PlayerCombat : MonoBehaviour
     {
        // if (!GetComponent<PlayerController>().isShieldActive)
         //{
-            UnityEngine.Debug.Log("Attack");
+            //UnityEngine.Debug.Log("Attack");
             Collider2D[] hitEnnemies = Physics2D.OverlapCircleAll(attackCollider.transform.position, attackRange, ennemiMask);
 
             foreach (Collider2D ennmi in hitEnnemies)
             {
-                UnityEngine.Debug.Log("We hit" + ennmi.name);
+                //UnityEngine.Debug.Log("We hit" + ennmi.name);
                 ennmi.GetComponent<EnnemiStatus>().DamageTaken(attackDammage);
 
             }
