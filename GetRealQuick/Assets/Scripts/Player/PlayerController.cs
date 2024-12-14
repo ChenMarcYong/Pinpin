@@ -12,6 +12,8 @@ using System.Security.Cryptography;
 public class PlayerController : MonoBehaviour
 {
 
+    public static PlayerController singleton;
+
     [Header("Camera")]
     [SerializeField] private GameObject _cameraFollowOB;
 
@@ -56,7 +58,7 @@ public class PlayerController : MonoBehaviour
     public GameObject shieldLeft;           // Sprite bouclier à gauche
     public GameObject shieldRight;          // Sprite bouclier à droite
 
-    private int direction;
+    public int direction;
 
 
 
@@ -65,7 +67,12 @@ public class PlayerController : MonoBehaviour
     private CameraFollowObject _cameraFollowObject;
     private float _fallSpeedYDampingChangeThreshold;
 
-
+    private void Awake()
+    {
+        // Assurez-vous qu'il n'existe qu'une seule instance de ce script
+        if (singleton == null) singleton = this;
+        else Destroy(gameObject);
+    }
 
 
     void Start()
@@ -196,7 +203,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetTrigger("Jump");
             animator.SetBool("IsOnGround", false);
-            UnityEngine.Debug.Log("Jump");
+            //UnityEngine.Debug.Log("Jump");
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
             jumpCount--;
         }
@@ -278,7 +285,7 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
             animator.SetBool("IsOnGround", true);
-            UnityEngine.Debug.Log("Touch ground");
+            //UnityEngine.Debug.Log("Touch ground");
             jumpCount = maxJumpCount;
         }
     }
