@@ -17,7 +17,9 @@ public class PlayerController : MonoBehaviour
 
     public float speedX = 6f;
     public float speedY = 6f;
+    public int maxJumpCount = 2;
     public float jumpForce = 10f;
+    private int jumpCount;
     private bool isGrounded = false;
 
 
@@ -82,6 +84,8 @@ public class PlayerController : MonoBehaviour
         IsFacingRight = true;
 
         _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeThreshold;
+
+        jumpCount = maxJumpCount;
     }
 
     private void TurnCheck()
@@ -188,13 +192,13 @@ public class PlayerController : MonoBehaviour
     
     void OnJump() 
     {
-        if (isGrounded) 
+        if (isGrounded || jumpCount > 0) 
         {
             animator.SetTrigger("Jump");
             animator.SetBool("IsOnGround", false);
             UnityEngine.Debug.Log("Jump");
-            isGrounded = false;
             playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
+            jumpCount--;
         }
 
         // playerRigidbody.AddForce(0.0f, 5.0f, 0.0f, ForceMode.Impulse);
@@ -262,10 +266,28 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Vérifie si le personnage est de nouveau au sol
-        if (collision.contacts[0].normal.y > 0.5f && !isGrounded) // vérifie si le contact vient du bas
+/*        if (collision.contacts[0].normal.y > 0.5f && !isGrounded) // vérifie si le contact vient du bas
         {
             animator.SetBool("IsOnGround", true);
             isGrounded = true;
+        }*/
+
+
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            isGrounded = true;
+            animator.SetBool("IsOnGround", true);
+            UnityEngine.Debug.Log("Touch ground");
+            jumpCount = maxJumpCount;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            isGrounded = false;
         }
     }
 
@@ -273,8 +295,8 @@ public class PlayerController : MonoBehaviour
     {
         MoveAround();
         vy = playerRigidbody.velocity.y;
-        if (playerRigidbody.velocity.y < -0.5f) isGrounded = false;
-        else isGrounded = true;
+/*        if (playerRigidbody.velocity.y < -0.5f) isGrounded = false;
+        else isGrounded = true;*/
         //if (playerRigidbody.velocity.y == 0f) isGrounded = true;
         //else isGrounded = false;
         //ApplyGravityMultiplier();
