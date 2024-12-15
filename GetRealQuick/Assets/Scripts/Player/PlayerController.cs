@@ -283,10 +283,40 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            isGrounded = true;
-            animator.SetBool("IsOnGround", true);
-            //UnityEngine.Debug.Log("Touch ground");
-            jumpCount = maxJumpCount;
+            UnityEngine.Debug.Log("Nombre de collision avec sol : " + collision.contactCount);
+            if (collision.contactCount  > 1) 
+            {
+                
+                ContactPoint2D lowestContact = collision.contacts[0];
+
+                foreach (ContactPoint2D contact in collision.contacts)
+                {
+                    // Comparez les hauteurs (point.y)
+                    if (contact.point.y < lowestContact.point.y)
+                    {
+                        lowestContact = contact;
+                    }
+                }
+                float normalY = lowestContact.normal.y;
+
+                if (normalY > 0.5f) 
+                {
+                    isGrounded = true;
+                    animator.SetBool("IsOnGround", true);
+                    //UnityEngine.Debug.Log("Touch ground");
+                    jumpCount = maxJumpCount;
+                }
+            }
+
+
+            else if (collision.contacts[0].normal.y > 0.5f)
+            {
+                isGrounded = true;
+                animator.SetBool("IsOnGround", true);
+                //UnityEngine.Debug.Log("Touch ground");
+                jumpCount = maxJumpCount;
+            }
+
         }
     }
 
