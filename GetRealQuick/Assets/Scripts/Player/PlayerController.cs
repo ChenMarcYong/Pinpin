@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
     public float dashForce = 25f;
     public float dashDuration = 0.12f;
     public float dashCooldown = 2f;
+    public float dashDamageFireTrail = 2.5f;
     private bool isDashing = false;
     private float lastDashTime;
 
@@ -298,7 +299,7 @@ public class PlayerController : MonoBehaviour
             if (!enemiesHit.Contains(enemy))
             {
                 enemiesHit.Add(enemy);
-                enemy.GetComponent<EnnemiStatus>()?.DamageTaken(10);
+                enemy.GetComponent<EnnemiStatus>()?.DamageTaken(dashDamageFireTrail);
                 //Debug.Log($"Ennemi touché au début du dash : {enemy.name}");
             }
         }
@@ -312,7 +313,7 @@ public class PlayerController : MonoBehaviour
         {
             if (collision.CompareTag("Ennemi"))
             {
-                collision.GetComponent<EnnemiStatus>().DamageTaken(10);
+                collision.GetComponent<EnnemiStatus>().DamageTaken(dashDamageFireTrail);
             }
         }
     }
