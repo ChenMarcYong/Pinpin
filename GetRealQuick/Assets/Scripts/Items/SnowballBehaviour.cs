@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class SnowballBehaviour : MonoBehaviour
@@ -7,6 +8,9 @@ public class SnowballBehaviour : MonoBehaviour
     [SerializeField] private float normalSnowballSpeed = 15f;
     [SerializeField] private float heightThreshold = 100f;
     private Rigidbody2D rb;
+
+    private GameObject shooter;
+
 
     private void Start() 
     {
@@ -29,14 +33,25 @@ public class SnowballBehaviour : MonoBehaviour
         
     }
 
+    public void SetShooter(GameObject shooterObject)
+    {
+        shooter = shooterObject;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision) 
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Ennemi")) 
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ennemi") && shooter != collision.gameObject) 
         {
             collision.gameObject.GetComponent<EnnemiStatus>().DamageTaken(5);
         }
 
-        if (collision.gameObject.layer != LayerMask.NameToLayer("Player")) 
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && shooter != collision.gameObject)
+        {
+            //collision.gameObject.GetComponent<PlayerStatus>()?.TakeDamage(5);
+            UnityEngine.Debug.Log($"Player touché : ");
+        }
+
+        if (collision.gameObject != shooter) 
         {
             Destroy(gameObject);
         }
