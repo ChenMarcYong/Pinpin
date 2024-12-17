@@ -29,12 +29,14 @@ Shader "Custom/DashTrailShader"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+                fixed4 color : COLOR; // Utilisation de la couleur des particules
             };
 
             struct v2f
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+                fixed4 color : COLOR; // Transmet la couleur des particules
             };
 
             v2f vert (appdata v)
@@ -42,6 +44,7 @@ Shader "Custom/DashTrailShader"
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
+                o.color = v.color; // Transmet la couleur
                 return o;
             }
 
@@ -49,7 +52,9 @@ Shader "Custom/DashTrailShader"
             {
                 fixed4 texColor = tex2D(_MainTex, i.uv);
                 texColor.a *= _Fade; // Contrôle la transparence
-                return texColor * _Color; // Couleur modifiable
+
+                // Multiplie la couleur du matériau avec la couleur de la particule et la texture
+                return texColor * i.color * _Color; 
             }
             ENDCG
         }
