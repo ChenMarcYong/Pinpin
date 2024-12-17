@@ -33,7 +33,7 @@ public class SnowballBehaviour : MonoBehaviour
             collision.gameObject.GetComponent<EnnemiStatus>().DamageTaken(5);
         }
 
-        else if (collision.gameObject.layer != LayerMask.NameToLayer("Player")) 
+        if (collision.gameObject.layer != LayerMask.NameToLayer("Player")) 
         {
             Destroy(gameObject);
         }

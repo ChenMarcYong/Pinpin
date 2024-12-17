@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -103,7 +103,217 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: chapross_walk_0
+      rect:
+        serializedVersion: 2
+        x: 1122
+        y: 446
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a4ada74dbe3ef74394bfb0f3bcac2a1
+      internalID: 1741455434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_walk_1
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 63
+        width: 231
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d94726ff0468a34e95d2772459549f1
+      internalID: 1790063997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_walk_2
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 63
+        width: 227
+        height: 380
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eceefe6efc9a46b448da853aa80e743d
+      internalID: 857559527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_walk_3
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 63
+        width: 213
+        height: 375
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b728e7b457399e478debb1b00e43ee9
+      internalID: 147369951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_walk_4
+      rect:
+        serializedVersion: 2
+        x: 947
+        y: 66
+        width: 203
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bc05c037d24bc14494ca39b32bbfc88
+      internalID: 1854849979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_walk_5
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 63
+        width: 203
+        height: 366
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ece6958aa0c04f46bbfd9d181f18cec
+      internalID: -1841413223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_walk_6
+      rect:
+        serializedVersion: 2
+        x: 1424
+        y: 63
+        width: 203
+        height: 371
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a6e165127583f145a69abd39ad3dea6
+      internalID: 113283200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_walk_7
+      rect:
+        serializedVersion: 2
+        x: 1667
+        y: 63
+        width: 211
+        height: 375
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afc6a34dd052bb4498b25087976a2ddb
+      internalID: -913384693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_walk_8
+      rect:
+        serializedVersion: 2
+        x: 1919
+        y: 64
+        width: 227
+        height: 379
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 474d7dff3f6142f44b9c31f547e9f6b4
+      internalID: 1964288871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_walk_9
+      rect:
+        serializedVersion: 2
+        x: 2180
+        y: 63
+        width: 228
+        height: 383
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a02e6c6fedebf3543baecce04a1d14f9
+      internalID: 1531877047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -114,7 +324,17 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      chapross_walk_7: -913384693
+      chapross_walk_1: 1790063997
+      chapross_walk_4: 1854849979
+      chapross_walk_9: 1531877047
+      chapross_walk_8: 1964288871
+      chapross_walk_5: -1841413223
+      chapross_walk_0: 1741455434
+      chapross_walk_2: 857559527
+      chapross_walk_3: 147369951
+      chapross_walk_6: 113283200
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

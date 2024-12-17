@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -103,7 +103,154 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: chapross_hurt_3
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 59
+        width: 239
+        height: 397
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 266931100873a95498fd7e6190dbc017
+      internalID: 859518198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_hurt_4
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 54
+        width: 242
+        height: 398
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e729e30a11f8bce46be3405418bb0f22
+      internalID: -1800863464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_hurt_6
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 51
+        width: 266
+        height: 393
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fafc25f0d1c84bd4a8bd5e8b5f1dd90f
+      internalID: 1427670537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_hurt_7
+      rect:
+        serializedVersion: 2
+        x: 944
+        y: 51
+        width: 246
+        height: 393
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f0b32bf78da7d943b6a8c1bdb66d3c0
+      internalID: 644167321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_hurt_8
+      rect:
+        serializedVersion: 2
+        x: 1241
+        y: 55
+        width: 220
+        height: 389
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83b4f0e4a3b8e4047a5bfe007eed58ca
+      internalID: -1810285218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_hurt_9
+      rect:
+        serializedVersion: 2
+        x: 1527
+        y: 53
+        width: 215
+        height: 397
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a638a939eb57df47a0597d891f03960
+      internalID: 1782896118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_hurt_10
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 59
+        width: 217
+        height: 396
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19925a2a62cc66741ac537b894adf730
+      internalID: -712808113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -114,7 +261,18 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      chapross_hurt_1: -1191206301
+      chapross_hurt_3: 859518198
+      chapross_hurt_4: -1800863464
+      chapross_hurt_9: 1782896118
+      chapross_hurt_10: -712808113
+      chapross_hurt_0: 2049469986
+      chapross_hurt_6: 1427670537
+      chapross_hurt_2: 518473590
+      chapross_hurt_5: 2091454603
+      chapross_hurt_8: -1810285218
+      chapross_hurt_7: 644167321
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

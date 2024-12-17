@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -103,7 +103,196 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: chapross_death_0
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 489
+        width: 253
+        height: 423
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8599fd615ed3a8a46bd5946a61ba229b
+      internalID: -2063070187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_death_1
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 489
+        width: 255
+        height: 417
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec9fbee64a4a97a409eb66954d54bae2
+      internalID: -1260053210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_death_2
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 489
+        width: 227
+        height: 410
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bff01f6c8185ec48b653f6dfeb01070
+      internalID: -961856472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_death_3
+      rect:
+        serializedVersion: 2
+        x: 1054
+        y: 489
+        width: 313
+        height: 370
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 322e6299ab7dbff419fc9dce6df1ca8b
+      internalID: -953725442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_death_4
+      rect:
+        serializedVersion: 2
+        x: 1379
+        y: 489
+        width: 396
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c808692f6334814e8e3dec677425e1d
+      internalID: 1724142997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_death_5
+      rect:
+        serializedVersion: 2
+        x: 1781
+        y: 471
+        width: 465
+        height: 249
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f22c449de017da24381455fef6b1572b
+      internalID: -1180970515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_death_6
+      rect:
+        serializedVersion: 2
+        x: 2277
+        y: 488
+        width: 511
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18eb68e07a480ad409e6b97a4082c6e2
+      internalID: -190807922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_death_8
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 176
+        width: 535
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d713113f5a3dc9045800b39587fb7dfe
+      internalID: 334648269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chapross_death_11
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 112
+        width: 545
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2bcac62cbd4044438f511a11612945f
+      internalID: 1856485675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -114,7 +303,20 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      chapross_death_11: 1856485675
+      chapross_death_7: 649504131
+      chapross_death_9: 2056027373
+      chapross_death_10: 333598099
+      chapross_death_0: -2063070187
+      chapross_death_5: -1180970515
+      chapross_death_8: 334648269
+      chapross_death_12: -190898068
+      chapross_death_3: -953725442
+      chapross_death_1: -1260053210
+      chapross_death_6: -190807922
+      chapross_death_2: -961856472
+      chapross_death_4: 1724142997
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
