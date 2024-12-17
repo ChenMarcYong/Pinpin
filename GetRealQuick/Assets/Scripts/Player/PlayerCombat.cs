@@ -53,7 +53,7 @@ public class PlayerCombat : MonoBehaviour
         if (PlayerController.singleton != null) 
         {
             int direction = PlayerController.singleton.direction;
-            UnityEngine.Debug.Log("snowball direction : " + direction + " position : " + snowballSpawnPoint.position);
+            //UnityEngine.Debug.Log("snowball direction : " + direction + " position : " + snowballSpawnPoint.position);
             //UnityEngine.Debug.Log("snowProjectile");
             Quaternion rotation = direction == -1 ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 180, 0);
             snowballInst = Instantiate(snowball, snowballSpawnPoint.position, rotation) ;
