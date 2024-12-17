@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7211549357934688814}
   m_Layer: 7
   m_Name: chapross
-  m_TagString: Untagged
+  m_TagString: Ennemi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

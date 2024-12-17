@@ -20,8 +20,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject dashParticlesPrefab;
 
-    private ParticleSystem dashParticlesInstance;
+    private float detectionRadius = 0.5f;
 
+    private ParticleSystem dashParticlesInstance;
+    private bool hasFireTrail = true;
 
     public float speedX = 6f;
     public float speedY = 6f;
@@ -250,14 +252,22 @@ public class PlayerController : MonoBehaviour
         // Vérifie si le dash est en cooldown
         if (Time.time - lastDashTime >= dashCooldown && !isDashing)
         {
+            isDashing = true;
             StartCoroutine(Dash());
-            dashParticlesInstance.Play();
+
+            if (hasFireTrail) 
+            {
+                dashParticlesInstance.Play();
+                DetectEnemiesAtStart();
+            }
+
+            
         }
     }
 
     private IEnumerator Dash()
     {
-        isDashing = true;
+        
         lastDashTime = Time.time;
 
         // Activer le paramètre "IsDashing" dans l'Animator pour démarrer l'animation
@@ -274,6 +284,37 @@ public class PlayerController : MonoBehaviour
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ennemi"), false);
         isDashing = false;
         dashParticlesInstance.Stop();
+        enemiesHit.Clear();
+    }
+
+    private void DetectEnemiesAtStart()
+    {
+        // Détecte tous les ennemis dans un rayon autour du joueur
+        Vector2 detectionPosition = new Vector2(transform.position.x + direction * 1.5f, transform.position.y);
+        Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(detectionPosition, detectionRadius, LayerMask.GetMask("Ennemi"));
+
+        foreach (Collider2D enemy in enemiesInRange)
+        {
+            if (!enemiesHit.Contains(enemy))
+            {
+                enemiesHit.Add(enemy);
+                enemy.GetComponent<EnnemiStatus>()?.DamageTaken(10);
+                //Debug.Log($"Ennemi touché au début du dash : {enemy.name}");
+            }
+        }
+    }
+
+    private HashSet<Collider2D> enemiesHit = new HashSet<Collider2D>();
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isDashing && hasFireTrail)
+        {
+            if (collision.CompareTag("Ennemi"))
+            {
+                collision.GetComponent<EnnemiStatus>().DamageTaken(10);
+            }
+        }
     }
 
     void OnShield()
@@ -414,5 +455,13 @@ public class PlayerController : MonoBehaviour
     {
         if (attackPoint == null) return;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+    private void OnDrawGizmos()
+    {
+/*        // Dessine un cercle pour visualiser la portée de détection
+        Gizmos.color = Color.red;
+        Vector2 detectionPosition = new Vector2(transform.position.x + direction * 1.5f, transform.position.y);
+        Gizmos.DrawWireSphere(detectionPosition, detectionRadius);*/
     }
 }
