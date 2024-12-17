@@ -15,6 +15,8 @@ public class EnnemiStatus : MonoBehaviour
 
     private bool isAlreadyDead = false;
 
+    private float TimeAfterDeath = 1.5f;
+
 
 
     void Start()
@@ -31,6 +33,30 @@ public class EnnemiStatus : MonoBehaviour
             isAlreadyDead = true;
             UnityEngine.Debug.Log("im dead" + name);
             Death(); 
+
+
+
+        }
+
+        if (isAlreadyDead) 
+        {
+            Collider2D[] enemyColliders = GetComponents<Collider2D>();
+
+            // Ignore les collisions avec tous les autres objets sauf le sol
+            foreach (Collider2D enemyCollider in enemyColliders)
+            {
+                // Récupère tous les colliders présents dans la scène
+                Collider2D[] allColliders = FindObjectsOfType<Collider2D>();
+
+                foreach (Collider2D otherCollider in allColliders)
+                {
+                    // Ignore les collisions sauf avec les objets sur la couche "Ground"
+                    if (otherCollider.gameObject.layer != LayerMask.NameToLayer("Ground"))
+                    {
+                        Physics2D.IgnoreCollision(enemyCollider, otherCollider, true);
+                    }
+                }
+            }
         }
         
     }
@@ -51,8 +77,10 @@ public class EnnemiStatus : MonoBehaviour
         {
             
             animator.SetBool("isDead", true);
-            Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Player"), true);
+            //Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Player"), true);
             
+
+
         }
         
         //UnityEngine.Debug.Log("im dead" + name);
@@ -71,7 +99,7 @@ public class EnnemiStatus : MonoBehaviour
     {
         {
             
-            yield return new WaitForSeconds(2f); // Attend 3 secondes
+            yield return new WaitForSeconds(TimeAfterDeath); // Attend 3 secondes
             Destroy(gameObject); // Détruit le GameObject
         }
 
