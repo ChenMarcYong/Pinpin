@@ -16,7 +16,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] private GameObject _cameraFollowOB;
-    [SerializeField] private ParticleSystem dashParticles;
+
+
+    [SerializeField] private GameObject dashParticlesPrefab;
+
+    private ParticleSystem dashParticlesInstance;
+
 
     public float speedX = 6f;
     public float speedY = 6f;
@@ -78,7 +83,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        dashParticles.Play();
         vy = 0;
         playerRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -96,15 +100,26 @@ public class PlayerController : MonoBehaviour
 
         jumpCount = maxJumpCount;
 
-        if (dashParticles != null)
+        if (dashParticlesPrefab != null)
         {
-            UnityEngine.Debug.Log("Joue les particules");
-            dashParticles.gameObject.SetActive(true);
-            dashParticles.Play();
+            // Instancier le prefab dans la scène à la position du GameObject principal
+            GameObject particleObject = Instantiate(dashParticlesPrefab, transform.position, Quaternion.identity);
+            particleObject.transform.SetParent(transform);
+            dashParticlesInstance = particleObject.GetComponent<ParticleSystem>();
+            
+
+            if (dashParticlesInstance != null)
+            {
+                dashParticlesInstance.gameObject.SetActive(true);
+            }
+            else
+            {
+                UnityEngine.Debug.LogError("Le Prefab n'a pas de ParticleSystem attaché !");
+            }
         }
         else
         {
-            UnityEngine.Debug.LogError("dashParticles n'est pas assigné dans l'inspecteur !");
+            UnityEngine.Debug.LogError("dashParticlesPrefab n'est pas assigné !");
         }
     }
 
@@ -236,6 +251,7 @@ public class PlayerController : MonoBehaviour
         if (Time.time - lastDashTime >= dashCooldown && !isDashing)
         {
             StartCoroutine(Dash());
+            dashParticlesInstance.Play();
         }
     }
 
@@ -257,6 +273,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsDashing", false);
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ennemi"), false);
         isDashing = false;
+        dashParticlesInstance.Stop();
     }
 
     void OnShield()
@@ -343,7 +360,8 @@ public class PlayerController : MonoBehaviour
     {
         MoveAround();
         vy = playerRigidbody.velocity.y;
-        dashParticles.transform.position = transform.position;
+
+        
         //dashParticles.transform.position = transform.position;
         /*        if (playerRigidbody.velocity.y < -0.5f) isGrounded = false;
                 else isGrounded = true;*/
