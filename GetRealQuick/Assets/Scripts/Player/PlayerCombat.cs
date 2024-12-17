@@ -8,6 +8,7 @@ public class PlayerCombat : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private GameObject snowball;
     [SerializeField] private Transform snowballSpawnPoint;
+    [SerializeField] private ParticleSystem dashParticles;
 
     private GameObject snowballInst;
 

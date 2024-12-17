@@ -31,7 +31,7 @@ public class EnnemiStatus : MonoBehaviour
         if (currentHealthPoint <= 0 && !isAlreadyDead)
         {
             isAlreadyDead = true;
-            UnityEngine.Debug.Log("im dead" + name);
+            //UnityEngine.Debug.Log("im dead" + name);
             Death(); 
 
 

@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] private GameObject _cameraFollowOB;
+    [SerializeField] private ParticleSystem dashParticles;
 
     public float speedX = 6f;
     public float speedY = 6f;
@@ -77,6 +78,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        dashParticles.Play();
         vy = 0;
         playerRigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -93,6 +95,17 @@ public class PlayerController : MonoBehaviour
         _fallSpeedYDampingChangeThreshold = CameraManager.instance._fallSpeedYDampingChangeThreshold;
 
         jumpCount = maxJumpCount;
+
+        if (dashParticles != null)
+        {
+            UnityEngine.Debug.Log("Joue les particules");
+            dashParticles.gameObject.SetActive(true);
+            dashParticles.Play();
+        }
+        else
+        {
+            UnityEngine.Debug.LogError("dashParticles n'est pas assigné dans l'inspecteur !");
+        }
     }
 
     private void TurnCheck()
@@ -198,10 +211,10 @@ public class PlayerController : MonoBehaviour
 
     }    
 
-    void OnShoot() 
+/*    void OnShoot() 
     {
         animator.SetTrigger("Attack");
-    }
+    }*/
     
     void OnJump() 
     {
@@ -282,7 +295,7 @@ public class PlayerController : MonoBehaviour
                     isGrounded = true;
                 }*/
 
-        UnityEngine.Debug.Log("number of collisions : " + collision.contactCount);
+       // UnityEngine.Debug.Log("number of collisions : " + collision.contactCount);
 
 
 
@@ -293,7 +306,7 @@ public class PlayerController : MonoBehaviour
             {
                 foreach (ContactPoint2D contact in collision.contacts)
                 {
-                    UnityEngine.Debug.Log("contact normal " + contact.normal.y);
+                    //UnityEngine.Debug.Log("contact normal " + contact.normal.y);
                     if (contact.normal.y > 0.5f)
                     {
                         isGrounded = true;
@@ -330,8 +343,10 @@ public class PlayerController : MonoBehaviour
     {
         MoveAround();
         vy = playerRigidbody.velocity.y;
-/*        if (playerRigidbody.velocity.y < -0.5f) isGrounded = false;
-        else isGrounded = true;*/
+        dashParticles.transform.position = transform.position;
+        //dashParticles.transform.position = transform.position;
+        /*        if (playerRigidbody.velocity.y < -0.5f) isGrounded = false;
+                else isGrounded = true;*/
         //if (playerRigidbody.velocity.y == 0f) isGrounded = true;
         //else isGrounded = false;
         //ApplyGravityMultiplier();
