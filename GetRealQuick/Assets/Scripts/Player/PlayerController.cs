@@ -197,6 +197,11 @@ public class PlayerController : MonoBehaviour
         //}
 
     }    
+
+    void OnShoot() 
+    {
+        animator.SetTrigger("Attack");
+    }
     
     void OnJump() 
     {

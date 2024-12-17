@@ -5,13 +5,18 @@ using UnityEngine;
 public class SnowballBehaviour : MonoBehaviour
 {
     [SerializeField] private float normalSnowballSpeed = 15f;
-
+    [SerializeField] private float heightThreshold = 100f;
     private Rigidbody2D rb;
 
     private void Start() 
     {
         rb = GetComponent<Rigidbody2D>();
         SetStraightVelocity();
+    }
+
+    private void Update()
+    {
+        ConditionToDeleteGameObject();
     }
 
     private void SetStraightVelocity() 
@@ -35,5 +40,10 @@ public class SnowballBehaviour : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void ConditionToDeleteGameObject() 
+    {
+       if (transform.position.y > heightThreshold) Destroy(gameObject);
     }
 }
