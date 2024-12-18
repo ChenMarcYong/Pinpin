@@ -28,6 +28,7 @@ public class Snowross_combat : MonoBehaviour
     private GameObject snowballInst_left_down_cornert;
 
     public float shootDirection = 1f;
+    public float TimeBetweenShoot = 1f;
 
     private float damage = 1f;
 
@@ -48,7 +49,7 @@ public class Snowross_combat : MonoBehaviour
         if (snowball != null) 
         {
 
-            if (shootDirection == 1f) 
+            if (shootDirection == 0f || shootDirection == 2f) 
             {
                 snowballInst_up = Instantiate(snowball, snowballSpawnPoint_up.position, Quaternion.Euler(0, 0, -90));
                 snowballInst_up.GetComponent<SnowballBehaviour>().SetShooter(gameObject, damage);
@@ -67,7 +68,7 @@ public class Snowross_combat : MonoBehaviour
             }
 
 
-            else 
+            if (shootDirection == 1f || shootDirection == 2f)
             {
                 snowballInst_right_up_corner = Instantiate(snowball, snowballSpawnPoint_right_up_corner.position, Quaternion.Euler(0, 0, -135));
                 snowballInst_right_up_corner.GetComponent<SnowballBehaviour>().SetShooter(gameObject, damage);
@@ -86,7 +87,7 @@ public class Snowross_combat : MonoBehaviour
             }
 
 
-
+            shootDirection = (shootDirection + 1) % 3;
 
 
         }
@@ -97,7 +98,7 @@ public class Snowross_combat : MonoBehaviour
         while (true) // Boucle infinie pour répéter l'action
         {
             shoot(); // Appel de la méthode shoot
-            yield return new WaitForSeconds(0.5f); // Attente de 5 secondes
+            yield return new WaitForSeconds(TimeBetweenShoot); // Attente de 5 secondes
         }
     }
 }
