@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
     public GameObject shieldLeft;           // Sprite bouclier à gauche
     public GameObject shieldRight;          // Sprite bouclier à droite
 
-    public int direction;
+    public int direction = -1;
 
 
 
@@ -275,6 +275,8 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsDashing", true);
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ennemi"), true);
         // Calculer la direction du dash (vers la droite ou vers la gauche en fonction de `inputValue.x`)
+
+
         playerRigidbody.velocity = new Vector2(direction * dashForce, playerRigidbody.velocity.y);
 
         // Attendre la durée du dash avant de rétablir les contrôles normaux

@@ -34,7 +34,7 @@ public class bonossBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-        UnityEngine.Debug.Log(player.position);
+        //UnityEngine.Debug.Log(player.position);
         if (player != null)
         {
             GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -47,7 +47,7 @@ public class bonossBehaviour : MonoBehaviour
             {
                 // Applique la vitesse uniquement sur l'axe X
                 rb.velocity = new Vector2(Mathf.Sign(directionX) * speed, rb.velocity.y);
-                FlipCharacter(directionX);
+                RotateTowardsPlayer(directionX);
             }
 
             
@@ -60,13 +60,19 @@ public class bonossBehaviour : MonoBehaviour
         }
     }
 
-    void RotateTowardsPlayer(Vector2 direction)
+    void RotateTowardsPlayer(float directionX)
     {
-        // Calcule l'angle vers le joueur
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        // Applique la rotation uniquement sur l'axe Z
-        transform.rotation = Quaternion.Euler(0, angle, 0);
+        // Détermine si l'IA doit regarder à gauche ou à droite
+        if (directionX > 0)
+        {
+            // Tourne vers la droite (0 degrés en Y)
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (directionX < 0)
+        {
+            // Tourne vers la gauche (180 degrés en Y)
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 
     void FlipCharacter(float directionX)
