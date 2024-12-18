@@ -18,6 +18,11 @@ public class SnowballBehaviour : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         SetStraightVelocity();
+
+        int projectileLayer = LayerMask.NameToLayer("EnnemiProjectile");
+        int enemyLayer = LayerMask.NameToLayer("Ennemi");
+        Physics2D.IgnoreLayerCollision(projectileLayer, enemyLayer);
+        Physics2D.IgnoreLayerCollision(projectileLayer, projectileLayer);
     }
 
     private void Update()
@@ -48,16 +53,34 @@ public class SnowballBehaviour : MonoBehaviour
             collision.gameObject.GetComponent<EnnemiStatus>().DamageTaken(damage);
         }
 
-        else if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && shooter != collision.gameObject)
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && shooter.layer != collision.gameObject.layer)
         {
             collision.gameObject.GetComponent<PlayerStatus>().DamageTaken(damage);
             //UnityEngine.Debug.Log($"Player touché : " + damage);
         }
 
-        if (collision.gameObject != shooter) 
+
+
+
+        if (collision.gameObject != shooter && collision.gameObject.layer != shooter.layer)
         {
             Destroy(gameObject);
         }
+
+        else
+        {
+            // Ignorer les collisions entre le projectile et le shooter
+            Collider2D shooterCollider = gameObject.GetComponent<Collider2D>();
+            Collider2D projectileCollider = collision.gameObject.GetComponent<Collider2D>();
+            
+            if (shooterCollider != null && projectileCollider != null)
+            {
+                UnityEngine.Debug.Log("aieeee" + shooterCollider + projectileCollider);
+                Physics2D.IgnoreCollision(projectileCollider, shooterCollider);
+            }
+        }
+
+
     }
 
     private void ConditionToDeleteGameObject() 

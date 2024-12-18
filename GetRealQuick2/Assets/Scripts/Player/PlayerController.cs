@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private float detectionRadius = 0.5f;
 
     private ParticleSystem dashParticlesInstance;
-    private bool hasFireTrail = true;
+    public bool hasFireTrail = true;
 
     public float speedX = 6f;
     public float speedY = 6f;

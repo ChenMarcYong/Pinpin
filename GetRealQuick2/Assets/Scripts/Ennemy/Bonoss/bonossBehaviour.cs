@@ -14,12 +14,18 @@ public class bonossBehaviour : MonoBehaviour
     private bool isFacingRight = true;
 
     private EnnemiStatus status;
+    private Animator animator;
+
+    public Collider2D attackCollider;
+    public float attackRange = 0.5f;
+    public float attackDammage = 1f;
+    public LayerMask playerMask;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         status = GetComponent<EnnemiStatus>();
-
+        animator = GetComponent<Animator>();
 
 
         // Trouve le joueur automatiquement s'il n'est pas assigné dans l'inspecteur
@@ -50,14 +56,16 @@ public class bonossBehaviour : MonoBehaviour
             float directionX = player.position.x - transform.position.x;
 
             // Vérifie la distance sur l'axe X uniquement
+            OnAttack();
             if (Mathf.Abs(directionX) > stoppingDistance)
             {
                 // Applique la vitesse uniquement sur l'axe X
                 rb.velocity = new Vector2(Mathf.Sign(directionX) * speed, rb.velocity.y);
                 RotateTowardsPlayer(directionX);
             }
-
             
+
+
 
             else
             {
@@ -91,6 +99,19 @@ public class bonossBehaviour : MonoBehaviour
 
             // Applique une rotation en Y de 180 degrés
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        }
+    }
+
+
+    void OnAttack()
+    {
+        animator.SetTrigger("Hurt");
+        Collider2D[] hitEnnemies = Physics2D.OverlapCircleAll(attackCollider.transform.position, attackRange, playerMask);
+
+        foreach (Collider2D ennmi in hitEnnemies)
+        {
+            ennmi.GetComponent<PlayerStatus>().DamageTaken(attackDammage);
+            //UnityEngine.Debug.Log("aieeee" + attackDammage);
         }
     }
 }

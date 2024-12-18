@@ -16,8 +16,8 @@ TagManager:
   - Player
   - Ennemi
   - Ground
-  - Projectile
-  - 
+  - PlayerProjectile
+  - EnnemiProjectile
   - 
   - 
   - 
