@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8308684144874809205}
   - component: {fileID: 963687317230449679}
   - component: {fileID: 7774770174520735326}
+  - component: {fileID: -4714744761583547400}
   m_Layer: 7
   m_Name: Bonoss
   m_TagString: Ennemi
@@ -160,3 +161,17 @@ MonoBehaviour:
   currentHealthPoint: 0
   MaxHealthPoint: 3
   attackDammage: 1
+--- !u!114 &-4714744761583547400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8308684144874809225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d664022babcee44b973976203cf37bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 8380054599942972956, guid: 6cf7495b7004726419f3f72f8a079dc9, type: 3}
+  speed: 3
