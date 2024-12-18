@@ -16,6 +16,8 @@ public class Snowross_combat : MonoBehaviour
     private GameObject snowballInst_down;
     private GameObject snowballInst_left;
 
+    private float shootDirection = 1f;
+
     private float damage = 1f;
 
 
@@ -34,18 +36,48 @@ public class Snowross_combat : MonoBehaviour
     {
         if (snowball != null) 
         {
-            
-            snowballInst_up = Instantiate(snowball, snowballSpawnPoint_up.position, Quaternion.Euler(0, 0, -90));
-            snowballInst_up.GetComponent<SnowballBehaviour>().SetShooter(gameObject, damage);
 
-            snowballInst_down = Instantiate(snowball, snowballSpawnPoint_down.position, Quaternion.Euler(0, 0, 90));
-            snowballInst_down.GetComponent<SnowballBehaviour>().SetShooter(gameObject, damage);
+            if (shootDirection == 1f) 
+            {
+                snowballInst_up = Instantiate(snowball, snowballSpawnPoint_up.position, Quaternion.Euler(0, 0, -90));
+                snowballInst_up.GetComponent<SnowballBehaviour>().SetShooter(gameObject, damage);
 
-            snowballInst_left = Instantiate(snowball, snowballSpawnPoint_left.position, Quaternion.Euler(0, 0, 0));
-            snowballInst_left.GetComponent<SnowballBehaviour>().SetShooter(gameObject, damage);
+                // Bas
+                snowballInst_down = Instantiate(snowball, snowballSpawnPoint_down.position, Quaternion.Euler(0, 0, 90));
+                snowballInst_down.GetComponent<SnowballBehaviour>().SetShooter(gameObject, damage);
 
-            snowballInst_right = Instantiate(snowball, snowballSpawnPoint_right.position, Quaternion.Euler(0, 180, 0));
-            snowballInst_right.GetComponent<SnowballBehaviour>().SetShooter(gameObject, damage);
+                // Gauche
+                snowballInst_left = Instantiate(snowball, snowballSpawnPoint_left.position, Quaternion.Euler(0, 0, 0));
+                snowballInst_left.GetComponent<SnowballBehaviour>().SetShooter(gameObject, damage);
+
+                // Droite
+                snowballInst_right = Instantiate(snowball, snowballSpawnPoint_right.position, Quaternion.Euler(0, 180, 0));
+                snowballInst_right.GetComponent<SnowballBehaviour>().SetShooter(gameObject, damage);
+            }
+
+
+            else 
+            {
+                snowballInst_up = Instantiate(snowball, snowballSpawnPoint_up.position, Quaternion.Euler(0, 0, -45));
+                snowballInst_up.GetComponent<SnowballBehaviour>().SetShooter(gameObject, damage);
+
+                // Haut droite
+                snowballInst_right = Instantiate(snowball, snowballSpawnPoint_right.position, Quaternion.Euler(0, 0, -135));
+                snowballInst_right.GetComponent<SnowballBehaviour>().SetShooter(gameObject, damage);
+
+                // Bas gauche
+                snowballInst_down = Instantiate(snowball, snowballSpawnPoint_down.position, Quaternion.Euler(0, 0, 135));
+                snowballInst_down.GetComponent<SnowballBehaviour>().SetShooter(gameObject, damage);
+
+                // Bas droite
+                snowballInst_left = Instantiate(snowball, snowballSpawnPoint_left.position, Quaternion.Euler(0, 0, 45));
+                snowballInst_left.GetComponent<SnowballBehaviour>().SetShooter(gameObject, damage);
+            }
+
+
+
+
+
         }
     }
 

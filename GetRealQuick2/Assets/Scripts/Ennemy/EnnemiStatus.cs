@@ -18,7 +18,6 @@ public class EnnemiStatus : MonoBehaviour
     private float TimeAfterDeath = 1.5f;
 
 
-
     void Start()
     {
         currentHealthPoint = MaxHealthPoint;
@@ -41,7 +40,6 @@ public class EnnemiStatus : MonoBehaviour
         if (isAlreadyDead) 
         {
             Collider2D[] enemyColliders = GetComponents<Collider2D>();
-
             // Ignore les collisions avec tous les autres objets sauf le sol
             foreach (Collider2D enemyCollider in enemyColliders)
             {
@@ -103,6 +101,11 @@ public class EnnemiStatus : MonoBehaviour
             Destroy(gameObject); // Détruit le GameObject
         }
 
+    }
+
+    public bool getIsAlreadyDead() 
+    {
+        return isAlreadyDead;
     }
 
 }

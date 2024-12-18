@@ -13,9 +13,14 @@ public class bonossBehaviour : MonoBehaviour
     private Rigidbody2D rb;            // Rigidbody de l'IA
     private bool isFacingRight = true;
 
+    private EnnemiStatus status;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        status = GetComponent<EnnemiStatus>();
+
+
 
         // Trouve le joueur automatiquement s'il n'est pas assigné dans l'inspecteur
         if (player == null)
@@ -34,8 +39,10 @@ public class bonossBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
+        status = GetComponent<EnnemiStatus>();
+
         //UnityEngine.Debug.Log(player.position);
-        if (player != null)
+        if (player != null && !status.getIsAlreadyDead())
         {
             GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
             player = playerObject.transform;
