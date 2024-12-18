@@ -32,10 +32,13 @@ public class Snowross_combat : MonoBehaviour
 
     private float damage = 1f;
 
+    private EnnemiStatus status;
+    bool isDead = false;
 
     void Start()
     {
         StartCoroutine(ShootRoutine());
+        status = GetComponent<EnnemiStatus>();
     }
 
     // Update is called once per frame
@@ -44,11 +47,16 @@ public class Snowross_combat : MonoBehaviour
         
     }
 
+    void FixedUpdate() 
+    {
+        status = GetComponent<EnnemiStatus>();
+        isDead = status.getIsAlreadyDead();
+    }
+
     void shoot() 
     {
-        if (snowball != null) 
+        if (snowball != null && !isDead) 
         {
-
             if (shootDirection == 0f || shootDirection == 2f) 
             {
                 snowballInst_up = Instantiate(snowball, snowballSpawnPoint_up.position, Quaternion.Euler(0, 0, -90));
