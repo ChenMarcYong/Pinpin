@@ -23,6 +23,7 @@ public class SnowballBehaviour : MonoBehaviour
         int enemyLayer = LayerMask.NameToLayer("Ennemi");
         Physics2D.IgnoreLayerCollision(projectileLayer, enemyLayer);
         Physics2D.IgnoreLayerCollision(projectileLayer, projectileLayer);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerProjectile"), LayerMask.NameToLayer("Player"));
     }
 
     private void Update()

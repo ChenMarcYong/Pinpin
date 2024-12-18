@@ -274,6 +274,7 @@ public class PlayerController : MonoBehaviour
         // Activer le paramètre "IsDashing" dans l'Animator pour démarrer l'animation
         animator.SetBool("IsDashing", true);
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ennemi"), true);
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("EnnemiProjectile"), true);
         // Calculer la direction du dash (vers la droite ou vers la gauche en fonction de `inputValue.x`)
 
 
@@ -285,6 +286,8 @@ public class PlayerController : MonoBehaviour
         // Désactiver "IsDashing" pour arrêter l'animation
         animator.SetBool("IsDashing", false);
         Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("Ennemi"), false);
+        Physics2D.IgnoreLayerCollision(gameObject.layer, LayerMask.NameToLayer("EnnemiProjectile"), false);
+
         isDashing = false;
         dashParticlesInstance.Stop();
         enemiesHit.Clear();

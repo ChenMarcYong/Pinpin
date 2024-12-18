@@ -8,7 +8,7 @@ public class bonossBehaviour : MonoBehaviour
     [Header("Paramètres de l'IA")]
     public Transform player;           // Référence au joueur
     public float speed = 3f;           // Vitesse de déplacement
-    public float stoppingDistance = 1f; // Distance d'arrêt autour du joueur
+    public float stoppingDistance = 2f; // Distance d'arrêt autour du joueur
 
     private Rigidbody2D rb;            // Rigidbody de l'IA
     private bool isFacingRight = true;
@@ -20,6 +20,9 @@ public class bonossBehaviour : MonoBehaviour
     public float attackRange = 0.5f;
     public float attackDammage = 1f;
     public LayerMask playerMask;
+
+    public float timeBetweenAttacks = 1f; // Temps entre deux attaques
+    private float nextAttackTime = 0f;    // Timer pour gérer les attaques
 
     void Start()
     {
@@ -56,7 +59,7 @@ public class bonossBehaviour : MonoBehaviour
             float directionX = player.position.x - transform.position.x;
 
             // Vérifie la distance sur l'axe X uniquement
-            OnAttack();
+            
             if (Mathf.Abs(directionX) > stoppingDistance)
             {
                 // Applique la vitesse uniquement sur l'axe X
@@ -71,6 +74,11 @@ public class bonossBehaviour : MonoBehaviour
             {
                 // Arrête le mouvement sur l'axe X
                 rb.velocity = new Vector2(0, rb.velocity.y);
+                if (Time.time >= nextAttackTime)
+                {
+                    OnAttack(); // Lance l'attaque
+                    nextAttackTime = Time.time + timeBetweenAttacks; // Réinitialise le timer d'attaque
+                }
             }
         }
     }
@@ -105,7 +113,7 @@ public class bonossBehaviour : MonoBehaviour
 
     void OnAttack()
     {
-        animator.SetTrigger("Hurt");
+        animator.SetTrigger("Attack");
         Collider2D[] hitEnnemies = Physics2D.OverlapCircleAll(attackCollider.transform.position, attackRange, playerMask);
 
         foreach (Collider2D ennmi in hitEnnemies)
