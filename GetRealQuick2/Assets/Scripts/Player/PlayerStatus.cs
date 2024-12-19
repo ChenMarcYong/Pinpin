@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerStatus : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class PlayerStatus : MonoBehaviour
     private bool isAlreadyDead = false;
 
     public float attackDammage = 1f;
-    
+    public Slider healthBar;
 
     [Header("Recovery Settings")]
     public float recoveryTime = 1.0f; // Temps de récupération en secondes
@@ -28,6 +29,9 @@ public class PlayerStatus : MonoBehaviour
     void Start()
     {
         currentHealthPoint = MaxHealthPoint;
+
+        healthBar.maxValue = MaxHealthPoint;
+        healthBar.value = currentHealthPoint;
         animator = GetComponent<Animator>();
 
 
@@ -48,7 +52,8 @@ public class PlayerStatus : MonoBehaviour
         {
             animator.SetTrigger("Hurt");
             currentHealthPoint -= damage;
-
+            currentHealthPoint = Mathf.Clamp(currentHealthPoint, 0, MaxHealthPoint);
+            healthBar.value = currentHealthPoint;
             StartCoroutine(RecoveryCooldown());
         }
     }
