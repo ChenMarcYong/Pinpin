@@ -71,6 +71,8 @@ public class PlayerStatus : MonoBehaviour
         
         FindObjectOfType<CameraZoomOnDeath>().TriggerZoomOnDeath();
 
+        GameController.singleton.GameOver();
+
     }
 
     private void DestroyAllEnemies()
