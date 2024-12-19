@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     public static PlayerController singleton;
 
+
     [Header("Camera")]
     [SerializeField] private GameObject _cameraFollowOB;
 
@@ -469,5 +470,11 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.red;
         Vector2 detectionPosition = new Vector2(transform.position.x + direction * 1.5f, transform.position.y);
         Gizmos.DrawWireSphere(detectionPosition, detectionRadius);*/
+    }
+
+
+    public bool getIsShielding() 
+    {
+        return isShielding;
     }
 }

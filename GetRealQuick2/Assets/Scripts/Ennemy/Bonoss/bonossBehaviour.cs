@@ -24,6 +24,8 @@ public class bonossBehaviour : MonoBehaviour
     public float timeBetweenAttacks = 1f; // Temps entre deux attaques
     private float nextAttackTime = 0f;    // Timer pour gérer les attaques
 
+    private bool PlayerGetsDamaged = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -48,6 +50,8 @@ public class bonossBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
+        PlayerGetsDamaged = PlayerShield.singleton.getGetsDamaged();
+
         status = GetComponent<EnnemiStatus>();
 
         //UnityEngine.Debug.Log(player.position);
@@ -64,9 +68,13 @@ public class bonossBehaviour : MonoBehaviour
             {
                 // Applique la vitesse uniquement sur l'axe X
                 rb.velocity = new Vector2(Mathf.Sign(directionX) * speed, rb.velocity.y);
+                
                 RotateTowardsPlayer(directionX);
             }
+
             
+
+
 
 
 
@@ -80,6 +88,7 @@ public class bonossBehaviour : MonoBehaviour
                     nextAttackTime = Time.time + timeBetweenAttacks; // Réinitialise le timer d'attaque
                 }
             }
+            animator.SetFloat("Speed", rb.velocity.magnitude);
         }
     }
 
@@ -114,12 +123,41 @@ public class bonossBehaviour : MonoBehaviour
     void OnAttack()
     {
         animator.SetTrigger("Attack");
-        Collider2D[] hitEnnemies = Physics2D.OverlapCircleAll(attackCollider.transform.position, attackRange, playerMask);
 
-        foreach (Collider2D ennmi in hitEnnemies)
+        LayerMask combinedMask = LayerMask.GetMask("Player", "Shield");
+
+        Collider2D[] hitTargets = Physics2D.OverlapCircleAll(attackCollider.transform.position, attackRange, combinedMask);
+
+        bool shieldDetected = false;
+
+        foreach (Collider2D target in hitTargets)
         {
-            ennmi.GetComponent<PlayerStatus>().DamageTaken(attackDammage);
-            //UnityEngine.Debug.Log("aieeee" + attackDammage);
+            
+            if (target.gameObject.layer == LayerMask.NameToLayer("Shield"))
+            {
+                UnityEngine.Debug.Log("Bouclier détecté, aucun dégât infligé !");
+                shieldDetected = true;
+                break;
+            }
+        }
+
+        if (!shieldDetected) 
+        {
+            foreach (Collider2D target in hitTargets)
+            {
+                PlayerStatus playerStatus = target.GetComponent<PlayerStatus>();
+                if (playerStatus != null)
+                {
+                    playerStatus.DamageTaken(attackDammage);
+                }
+            }
+        }
+
+        else
+        {
+            UnityEngine.Debug.Log("Bouclier détecté, aucun dégât infligé !");
         }
     }
+
+    
 }
