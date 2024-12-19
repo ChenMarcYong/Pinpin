@@ -38,13 +38,13 @@ public class PlayerStatus : MonoBehaviour
     {
         if (currentHealthPoint <= 0)
         {
-            Die();
+            GameOver();
         }
     }
 
     public void DamageTaken(float damage)
     {
-        if (canTakeDamage && !isAlreadyDead)
+        if (canTakeDamage && !isAlreadyDead && !PlayerController.singleton.getIsDashing())
         {
             animator.SetTrigger("Hurt");
             currentHealthPoint -= damage;
@@ -60,7 +60,7 @@ public class PlayerStatus : MonoBehaviour
         canTakeDamage = true;
     }
 
-    private void Die()
+    private void GameOver()
     {
         isAlreadyDead = true;
         animator.SetTrigger("Hurt");

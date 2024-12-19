@@ -482,4 +482,9 @@ public class PlayerController : MonoBehaviour
     {
         return isShielding;
     }
+
+    public bool getIsDashing()
+    {
+        return isDashing;
+    }
 }
