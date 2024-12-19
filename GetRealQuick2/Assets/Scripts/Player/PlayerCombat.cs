@@ -22,6 +22,8 @@ public class PlayerCombat : MonoBehaviour
 
     public float attackDammage = 1f;
     public float snowballDamage = 2f;
+    public float cooldownTime = 1.0f;
+    private bool canShoot = true;
     void Start()
     {
         int shield = LayerMask.NameToLayer("Shield");
@@ -54,19 +56,27 @@ public class PlayerCombat : MonoBehaviour
         //attackCollider.enabled = false;
     }
 
-    void OnShoot() 
+    void OnShoot()
     {
-        if (PlayerController.singleton != null) 
+        if (canShoot)
         {
-            int direction = PlayerController.singleton.direction;
-            //UnityEngine.Debug.Log("snowball direction : " + direction + " position : " + snowballSpawnPoint.position);
-            //UnityEngine.Debug.Log("snowProjectile");
-            Quaternion rotation = direction == -1 ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 180, 0);
-            snowballInst = Instantiate(snowball, snowballSpawnPoint.position, rotation) ;
-            snowballInst.GetComponent<SnowballBehaviour>().SetShooter(gameObject, snowballDamage);
+            if (PlayerController.singleton != null)
+            {
+                int direction = PlayerController.singleton.direction;
+                Quaternion rotation = direction == -1 ? Quaternion.Euler(0, 0, 0) : Quaternion.Euler(0, 180, 0);
+                GameObject snowballInst = Instantiate(snowball, snowballSpawnPoint.position, rotation);
+                snowballInst.GetComponent<SnowballBehaviour>().SetShooter(gameObject, snowballDamage);
+
+                StartCoroutine(CooldownCoroutine());
+            }
         }
+    }
 
-
+    private IEnumerator CooldownCoroutine()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(cooldownTime);
+        canShoot = true;
     }
 
 
