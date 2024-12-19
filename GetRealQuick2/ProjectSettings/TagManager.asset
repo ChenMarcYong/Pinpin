@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Shield
   - Ennemi
+  - EnnemiProjectile
   layers:
   - Default
   - TransparentFX

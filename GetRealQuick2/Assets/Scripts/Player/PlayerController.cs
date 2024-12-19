@@ -321,6 +321,11 @@ public class PlayerController : MonoBehaviour
             {
                 collision.GetComponent<EnnemiStatus>().DamageTaken(dashDamageFireTrail);
             }
+
+            if (collision.CompareTag("EnnemiProjectile"))
+            {
+                Destroy(collision.gameObject);
+            }
         }
     }
 

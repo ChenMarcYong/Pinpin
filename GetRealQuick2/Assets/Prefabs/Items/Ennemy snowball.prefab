@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3311683538311714902}
   m_Layer: 10
   m_Name: Ennemy snowball
-  m_TagString: Ennemi
+  m_TagString: EnnemiProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

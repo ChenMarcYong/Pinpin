@@ -27,6 +27,7 @@ public class PlayerCombat : MonoBehaviour
         int shield = LayerMask.NameToLayer("Shield");
         int player = LayerMask.NameToLayer("Player");
         Physics2D.IgnoreLayerCollision(shield, player);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerProjectile"), player);
     }
 
     // Update is called once per frame
