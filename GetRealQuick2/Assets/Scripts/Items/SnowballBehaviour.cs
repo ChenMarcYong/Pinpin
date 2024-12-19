@@ -76,7 +76,7 @@ public class SnowballBehaviour : MonoBehaviour
             
             if (shooterCollider != null && projectileCollider != null)
             {
-                UnityEngine.Debug.Log("aieeee" + shooterCollider + projectileCollider);
+                //UnityEngine.Debug.Log("aieeee" + shooterCollider + projectileCollider);
                 Physics2D.IgnoreCollision(projectileCollider, shooterCollider);
             }
         }

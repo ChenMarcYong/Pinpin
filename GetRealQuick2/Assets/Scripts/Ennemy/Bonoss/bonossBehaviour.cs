@@ -135,7 +135,7 @@ public class bonossBehaviour : MonoBehaviour
             
             if (target.gameObject.layer == LayerMask.NameToLayer("Shield"))
             {
-                UnityEngine.Debug.Log("Bouclier détecté, aucun dégât infligé !");
+                //UnityEngine.Debug.Log("Bouclier détecté, aucun dégât infligé !");
                 shieldDetected = true;
                 break;
             }
@@ -151,11 +151,6 @@ public class bonossBehaviour : MonoBehaviour
                     playerStatus.DamageTaken(attackDammage);
                 }
             }
-        }
-
-        else
-        {
-            UnityEngine.Debug.Log("Bouclier détecté, aucun dégât infligé !");
         }
     }
 

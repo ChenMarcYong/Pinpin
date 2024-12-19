@@ -24,6 +24,9 @@ public class PlayerCombat : MonoBehaviour
     public float snowballDamage = 2f;
     void Start()
     {
+        int shield = LayerMask.NameToLayer("Shield");
+        int player = LayerMask.NameToLayer("Player");
+        Physics2D.IgnoreLayerCollision(shield, player);
     }
 
     // Update is called once per frame

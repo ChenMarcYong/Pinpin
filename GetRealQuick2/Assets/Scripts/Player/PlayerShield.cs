@@ -40,8 +40,8 @@ public class PlayerShield : MonoBehaviour
         {
             if (collision.gameObject.layer == LayerMask.NameToLayer("EnnemiProjectile"))
             {
-                Destroy(collision.gameObject); // Détruire le projectile
-                UnityEngine.Debug.Log("Projectile détruit par le bouclier.");
+                Destroy(collision.gameObject);
+                //UnityEngine.Debug.Log("Projectile détruit par le bouclier.");
             }
         }
     }
