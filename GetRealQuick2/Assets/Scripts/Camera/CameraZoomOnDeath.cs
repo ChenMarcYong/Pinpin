@@ -36,7 +36,16 @@ public class CameraZoomOnDeath : MonoBehaviour
             virtualCamera.Follow = player;
         }
 
-        // Lancer l'interpolation pour effectuer le zoom
+        // Accéder au Framing Transposer
+        CinemachineFramingTransposer framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        float startXOffset = 0f;
+
+        if (framingTransposer != null)
+        {
+            startXOffset = framingTransposer.m_TrackedObjectOffset.x;
+        }
+
+        // Lancer l'interpolation pour effectuer le zoom et ajuster X
         while (elapsedTime < zoomDuration)
         {
             elapsedTime += Time.deltaTime;
@@ -45,11 +54,23 @@ public class CameraZoomOnDeath : MonoBehaviour
             float t = elapsedTime / zoomDuration;
             virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(startSize, zoomTargetSize, t);
 
+            // Interpoler la valeur de X vers 0
+            if (framingTransposer != null)
+            {
+                framingTransposer.m_TrackedObjectOffset.x = Mathf.Lerp(startXOffset, 0, t);
+            }
+
             yield return null;
         }
 
         // Assurer que la taille orthographique finale est bien atteinte
         virtualCamera.m_Lens.OrthographicSize = zoomTargetSize;
+
+        // Assurer que X est bien à 0
+        if (framingTransposer != null)
+        {
+            framingTransposer.m_TrackedObjectOffset.x = 0;
+        }
 
         isZooming = false;
     }

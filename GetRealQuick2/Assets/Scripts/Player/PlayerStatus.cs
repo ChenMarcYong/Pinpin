@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerStatus : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class PlayerStatus : MonoBehaviour
     [Header("Recovery Settings")]
     public float recoveryTime = 1.0f; // Temps de récupération en secondes
     private bool canTakeDamage = true;
+
+    [Header("Player Settings")]
+    [SerializeField] private PlayerInput playerInput;
 
     // Start is called before the first frame update
     void Start()
@@ -60,8 +64,11 @@ public class PlayerStatus : MonoBehaviour
     {
         isAlreadyDead = true;
         animator.SetTrigger("Hurt");
-        UnityEngine.Debug.Log("Dead");
+        DisablePlayerInput();
+        //UnityEngine.Debug.Log("Dead");
+        DestroyAllProjectiles();
         DisableAllEnemyScripts();
+        
         FindObjectOfType<CameraZoomOnDeath>().TriggerZoomOnDeath();
 
     }
@@ -81,7 +88,6 @@ public class PlayerStatus : MonoBehaviour
                 Destroy(obj);
             }
         }
-
     }
 
     private void DisableAllEnemyScripts()
@@ -106,5 +112,30 @@ public class PlayerStatus : MonoBehaviour
             }
         }
 
+    }
+
+    private void DestroyAllProjectiles()
+    {
+        int enemyProjectileLayer = LayerMask.NameToLayer("EnnemiProjectile");
+
+        // Trouver tous les objets dans la scène
+        GameObject[] allObjects = FindObjectsOfType<GameObject>();
+
+        foreach (GameObject obj in allObjects)
+        {
+            // Vérifier si l'objet est sur le layer "Ennemi"
+            if (obj.layer == enemyProjectileLayer)
+            {
+                Destroy(obj);
+            }
+        }
+    }
+
+    private void DisablePlayerInput()
+    {
+        if (playerInput != null)
+        {
+            playerInput.DeactivateInput(); // Désactive toutes les entrées
+        }
     }
 }
