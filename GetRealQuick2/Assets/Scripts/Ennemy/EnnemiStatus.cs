@@ -20,7 +20,7 @@ public class EnnemiStatus : MonoBehaviour
 
     void Start()
     {
-        currentHealthPoint = MaxHealthPoint;
+        currentHealthPoint = MaxHealthPoint * transform.localScale.x;
         animator = GetComponent<Animator>();
     }
 

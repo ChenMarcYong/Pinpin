@@ -35,7 +35,7 @@ public class Snowross_combat : MonoBehaviour
     public int numbersOfSnowBalls = 3;
     public float swiftness = 3f;
     public float durationTime = 3f;
-
+    public float shieldCooldown = 10f;
     private float damage = 1f;
 
     private EnnemiStatus status;
@@ -45,6 +45,7 @@ public class Snowross_combat : MonoBehaviour
 
     void Start()
     {
+        radius = transform.localScale.x * 2;
         StartCoroutine(ShootRoutine());
 
         if (HasShield) 
@@ -222,7 +223,7 @@ public class Snowross_combat : MonoBehaviour
         while (!isDead) // Tant que l'ennemi n'est pas mort
         {
             
-            yield return new WaitForSeconds(10f); // Attendre 10 secondes
+            yield return new WaitForSeconds(shieldCooldown); // Attendre 10 secondes
             
             StartCoroutine(CircularAttack(durationTime, numbersOfSnowBalls, radius, swiftness)); // Lancer l'attaque circulaire
             
