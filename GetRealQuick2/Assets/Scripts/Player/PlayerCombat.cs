@@ -14,7 +14,7 @@ public class PlayerCombat : MonoBehaviour
 
 
     public LayerMask ennemiMask;
-    public float attackRange = 0.5f;
+    public float attackRange = 1.25f;
     public Transform attackPoint;
     public Collider2D attackCollider;
 

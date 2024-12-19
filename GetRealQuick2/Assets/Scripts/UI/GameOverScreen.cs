@@ -13,6 +13,6 @@ public class GameOverScreen : MonoBehaviour
 
     public void restartButton() 
     {
-        SceneManager.LoadScene("level_boss");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
